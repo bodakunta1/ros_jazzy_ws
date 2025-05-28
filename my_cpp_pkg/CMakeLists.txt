@@ -50,6 +50,9 @@ ament_target_dependencies(number_publisher rclcpp example_interfaces)
 add_executable(number_counter src/number_counter.cpp)
 ament_target_dependencies(number_counter rclcpp example_interfaces)
 
+add_executable(led_panel src/led_panel.cpp)
+ament_target_dependencies(led_panel rclcpp my_robot_interfaces)
+
 install(TARGETS
   cpp_node
   robot_news_station
@@ -60,6 +63,7 @@ install(TARGETS
   hardware_status_publisher
   number_publisher
   number_counter
+  led_panel
   DESTINATION lib/${PROJECT_NAME}
 )
 
