@@ -11,6 +11,12 @@ find_package(rclcpp REQUIRED)
 find_package(example_interfaces REQUIRED)
 find_package(my_robot_interfaces REQUIRED)
 
+
+include_directories(
+  include
+  ${rclcpp_INCLUDE_DIRS}
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights

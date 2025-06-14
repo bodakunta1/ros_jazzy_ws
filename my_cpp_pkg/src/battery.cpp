@@ -3,7 +3,6 @@
 
 using namespace std::placeholders;
 using namespace std::chrono_literals;
-
 class BatteryNode : public rclcpp::Node
 {
 public:
@@ -69,8 +68,6 @@ private:
     }
     rclcpp::Client<my_robot_interfaces::srv::SetLed>::SharedPtr client_;
     rclcpp::TimerBase::SharedPtr timer_;
-
-
 };
 
 int main(int argc, char **argv)
