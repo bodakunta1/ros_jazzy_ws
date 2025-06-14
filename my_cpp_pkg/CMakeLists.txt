@@ -65,6 +65,9 @@ ament_target_dependencies(battery rclcpp my_robot_interfaces)
 add_executable(battery1 src/battery1.cpp)
 ament_target_dependencies(battery1 rclcpp my_robot_interfaces)
 
+add_executable(battery2 src/battery2.cpp)
+ament_target_dependencies(battery2 rclcpp my_robot_interfaces)
+
 install(TARGETS
   cpp_node
   robot_news_station
@@ -78,6 +81,7 @@ install(TARGETS
   led_panel
   battery
   battery1
+  battery2
   DESTINATION lib/${PROJECT_NAME}
 )
 
