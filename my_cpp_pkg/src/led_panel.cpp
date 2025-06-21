@@ -10,7 +10,9 @@ class LedPanelNode : public rclcpp::Node
 public:
     LedPanelNode(): Node("led_panel_node")
     {
-        led_states_ = {0, 0, 0};
+        this->declare_parameter("led_states_", std::vector<int64_t>{0, 0, 0});
+        this->get_parameter("led_states_", led_states_);
+        
         pub_ = create_publisher<my_robot_interfaces::msg::Ledstatus>("led_status_state", 10);
         timer_ = create_wall_timer(5s, std::bind(&LedPanelNode::PublishLedStates, this));
         server_ = create_service<my_robot_interfaces::srv::SetLed>("set_led", std::bind(&LedPanelNode::SetLedService, this, _1, _2));

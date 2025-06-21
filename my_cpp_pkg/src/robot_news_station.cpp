@@ -6,10 +6,16 @@ using namespace std::chrono_literals;
 class RobotNewsStationNode : public rclcpp::Node 
 {
 public:
-    RobotNewsStationNode() : Node("robot_news_station"), robot_name_("ginny")
+    RobotNewsStationNode() : Node("robot_news_station")
     {
+        this->declare_parameter("robot_name_", "Dalle");
+        this->declare_parameter("timer_", 1.0);
+
+        robot_name_ = this->get_parameter("robot_name_").as_string();
+        double timer_period = this->get_parameter("timer_").as_double();
+
         publisher_ = this->create_publisher<example_interfaces::msg::String>("topic_name_string", 10);
-        timer_ = this->create_wall_timer(0.5s, std::bind(&RobotNewsStationNode::publishNews, this));
+        timer_ = this->create_wall_timer(std::chrono::duration<double>(timer_period), std::bind(&RobotNewsStationNode::publishNews, this));
         RCLCPP_INFO(this->get_logger(), "Robot News Station has been started");
     }
 private:
