@@ -12,7 +12,7 @@ class RobotNewsStationNode(Node): #Modify Name
         self.robot_name_ = self.get_parameter("robot_name_").value
         self.timer_ = self.get_parameter("timer_").value
 
-        self.publisher_ = self.create_publisher(String, "topic_name_string", 10)
+        self.publisher_ = self.create_publisher(String, "robot_news_topic", 10)
         self.timer_ = self.create_timer(0.5, self.publish_news)
         self.get_logger().info("Robot news Station has been started")
         

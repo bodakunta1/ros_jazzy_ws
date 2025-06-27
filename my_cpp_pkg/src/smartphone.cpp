@@ -9,7 +9,7 @@ public:
     SmartphoneNode(): Node("smartphone") //MODIFY NAME    
     {
         subscriber_=this->create_subscription<example_interfaces::msg::String>(
-            "topic_name_string", 10,
+            "robot_news_topic", 10,
             std::bind(&SmartphoneNode::callbackRobotNews, this, _1));
         RCLCPP_INFO(this->get_logger(), "smartphone has been started.");
     }

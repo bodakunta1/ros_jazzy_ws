@@ -14,7 +14,7 @@ public:
         robot_name_ = this->get_parameter("robot_name_").as_string();
         double timer_period = this->get_parameter("timer_").as_double();
 
-        publisher_ = this->create_publisher<example_interfaces::msg::String>("topic_name_string", 10);
+        publisher_ = this->create_publisher<example_interfaces::msg::String>("robot_news_topic", 10);
         timer_ = this->create_wall_timer(std::chrono::duration<double>(timer_period), std::bind(&RobotNewsStationNode::publishNews, this));
         RCLCPP_INFO(this->get_logger(), "Robot News Station has been started");
     }

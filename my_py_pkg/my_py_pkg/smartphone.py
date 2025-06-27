@@ -7,7 +7,7 @@ class SmartphoneNode(Node): #Modify Name
     def __init__(self):
         super().__init__("smartphone")
         self.subscriber_ = self.create_subscription(
-            String, "topic_name_string", self.callback_robot_news, 10)
+            String, "robot_news_topic", self.callback_robot_news, 10)
         self.get_logger().info("Smartphone has been started. ")
 
     def callback_robot_news(self, msg: String):
