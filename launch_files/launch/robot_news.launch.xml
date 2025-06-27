@@ -1,17 +1,18 @@
 <launch>
     <node pkg="my_py_pkg" exec="robot_news_station" name="robot_news_station_giskard">
-        <param name="robot_name_" value="Giskard" />
+        <param from="$(find-pkg-share launch_files)/config/robot_news.yaml" />
     </node>
     <node pkg="my_py_pkg" exec="robot_news_station" name="robot_news_station_bb8">
-        <param name="robot_name_" value="BB8" />
+        <param from="$(find-pkg-share launch_files)/config/robot_news.yaml" />
     </node>
     <node pkg="my_py_pkg" exec="robot_news_station" name="robot_news_station_daneel">
-        <param name="robot_name_" value="Daneel" />
+        <param from="$(find-pkg-share launch_files)/config/robot_news.yaml" />
     </node>
     <node pkg="my_py_pkg" exec="robot_news_station" name="robot_news_station_lander">
-        <param name="robot_name_" value="Lander" />
+        <param from="$(find-pkg-share launch_files)/config/robot_news.yaml" />
     </node>
     <node pkg="my_py_pkg" exec="robot_news_station" name="robot_news_station_c3po">
-        <param name="robot_name_" value="C3P0" />
+        <param from="$(find-pkg-share launch_files)/config/robot_news.yaml" />
     </node>
     <node pkg="my_py_pkg" exec="smartphone"/>
+</launch>
