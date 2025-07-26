@@ -11,13 +11,21 @@ class TurtleController(Node):
         self.pose_ :Pose = None
         self.target_x = 2.0
         self.target_y = 4.0
+        self.theta = 0.0
         self.cmd_vel_pub_ = self.create_publisher(Twist, "/turtle1/cmd_vel", 10)
         self.pose_sub_ = self.create_subscription(Pose, "/turtle1/pose", self.pose_callback, 10)
+        self.receive_pose_ = self.create_subscription(Pose, "/spawn_pose", self.store_data, 10)
         self.controll_timer_ = self.create_timer(0.01, self.control_loop)
 
     def pose_callback(self, pose: Pose):
         self.pose_ = pose
 
+    def store_data(self, pose: Pose):
+        self.target_x = pose.x
+        self.target_y = pose.y
+        self.theta = pose.theta
+        self.get_logger().info(f"Target position has updated to: x={self.target_x}, y={self.target_y}, theta={self.theta}")
+        
     def control_loop(self):
         if self.pose_ == None:
             return
@@ -60,3 +68,4 @@ def main(args=None):
 if __name__ == "__main__":
     main()
     
+

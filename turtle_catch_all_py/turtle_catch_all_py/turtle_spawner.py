@@ -1,6 +1,7 @@
 #!usr/bin/env python3
 import rclpy
 from rclpy.node import Node
+from turtlesim.msg import Pose
 from turtlesim.srv import Spawn
 from functools import partial
 import random
@@ -11,8 +12,9 @@ class TurtleSpawner(Node):
         super().__init__("turtle_spawner")
         self.counter = 0
         self.turtle_prefix_ = "turtle"
+        self.spawn_pose_pub_ = self.create_publisher(Pose, "/spawn_pose", 10)
         self.spawn_service_client_ = self.create_client(Spawn, "/spawn")
-        self.spawn_servioce_timer_ = self.create_timer(2.0, self.spawn_new_turtle)
+        self.spawn_service_timer_ = self.create_timer(2.0, self.spawn_new_turtle)
 
     def spawn_new_turtle(self):
         self.counter += 1
@@ -35,6 +37,20 @@ class TurtleSpawner(Node):
         future = self.spawn_service_client_.call_async(request)
         future.add_done_callback(partial(self.spawn_service_callback, request = request))
 
+        
+        def timer_callback():
+            self.publish_pose(x, y, theta)
+            timer.cancel()
+
+        timer = self.create_timer(2.0, timer_callback)
+
+    def publish_pose(self, x, y, theta):
+        pose_msg = Pose()
+        pose_msg.x = x
+        pose_msg.y = y
+        pose_msg.theta = theta
+        self.spawn_pose_pub_.publish(pose_msg)
+
     def spawn_service_callback(self, future, request):
         response : Spawn.Response = future.result()
         if request.name != "":
@@ -48,4 +64,6 @@ def main(args=None):
 
 if __name__ == "__main__":
     main()
+
+
     
