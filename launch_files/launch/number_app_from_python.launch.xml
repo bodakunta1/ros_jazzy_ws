@@ -1,4 +1,0 @@
-<launch>
-    <include file="$(find-pkg-share launch_files)/launch/number_app.launch.py" />
-    
-</launch>
