@@ -19,7 +19,7 @@ class TurtleController(Node):
         self.cmd_vel_pub_ = self.create_publisher(Twist, "/turtle1/cmd_vel", 10)
         self.pose_sub_ = self.create_subscription(Pose, "/turtle1/pose", self.pose_callback, 10) 
         
-        self.controll_timer_ = self.create_timer(0.01, self.control_loop)
+        self.controll_timer_ = self.create_timer(0.1, self.control_loop)
 
         self.alive_turtles_subscriber_ = self.create_subscription(
             TurtleArray, "/alive_turtles", self.callback_alive_turtles, 10)
@@ -57,7 +57,7 @@ class TurtleController(Node):
 
         cmd = Twist()
 
-        if distance > 0.5:
+        if distance > 0.1:
             #Position
             cmd.linear.x = 2 * distance
             #Orientation
@@ -74,7 +74,7 @@ class TurtleController(Node):
             self.call_catch_turtle_service(self.turtles_to_catch_.name)
             self.turtles_to_catch_ = None
 
-        self.get_logger().info(f"Publishing cmd_vel: linear.x={cmd.linear.x}, angular.z={cmd.angular.z}")
+        #self.get_logger().info(f"Publishing cmd_vel: linear.x={cmd.linear.x}, angular.z={cmd.angular.z}")
         self.cmd_vel_pub_.publish(cmd)
 
     def call_catch_turtle_service(self, turtle_name):

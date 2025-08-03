@@ -19,12 +19,13 @@ class TurtleSpawner(Node):
 
         self.spawn_service_client_ = self.create_client(Spawn, "/spawn")
         self.kill_client_ = self.create_client(Kill, "/kill")
-        self.spawn_service_timer_ = self.create_timer(1.0, self.spawn_new_turtle)
+
+        self.spawn_service_timer_ = self.create_timer(2.0, self.spawn_new_turtle)
 
         self.alive_turtles_publisher_ = self.create_publisher(TurtleArray, "/alive_turtles", 10)
 
-        self.catch_turtle_service_ = self.create_service(CatchTurtle, "/catch_turtle", self.callback_catch_turtle)
-        
+        self.catch_turtle_service_ = self.create_service(
+            CatchTurtle, "/catch_turtle", self.callback_catch_turtle)
 
     def callback_catch_turtle(self, request: CatchTurtle.Request, response: CatchTurtle.Response):
         self.call_kill_service(request.name)
@@ -39,8 +40,8 @@ class TurtleSpawner(Node):
     def spawn_new_turtle(self):
         self.counter += 1
         name = self.turtle_name_prefix_ + str(self.counter)
-        x = random.uniform(0.0, 11.0)
-        y = random.uniform(0.0, 11.0)
+        x = random.uniform(0.0, 9.0)
+        y = random.uniform(0.0, 9.0)
         theta = random.uniform(0.0, 2 * math.pi)
         self.call_spawn_service(x, y, theta, name)
 
