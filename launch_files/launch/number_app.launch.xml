@@ -1,0 +1,12 @@
+<launch>
+    <node pkg="my_py_pkg" exec="number_publisher" name="my_number_publisher" namespace="/venky">
+        <remap from="number" to="my_number" />
+        <param from="$(find-pkg-share launch_files)/config/number_app.yaml" />
+        <!-- <param name="number" value="6" />
+        <param name="timer_period" value="2.5" /> -->
+        
+    </node>    
+    <node pkg="my_cpp_pkg" exec="number_counter" name="my_number_counter" namespace="/venky">
+        <remap from="number" to="my_number" />
+    </node>
+</launch>
